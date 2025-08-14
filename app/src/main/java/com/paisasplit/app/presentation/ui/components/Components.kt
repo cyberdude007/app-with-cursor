@@ -79,14 +79,14 @@ fun AmountInputField(
                         dampingRatio = Spring.DampingRatioMediumBouncy,
                         stiffness = Spring.StiffnessLow
                     )
-                ),
+                )
+                .onFocusChanged { isFocused = it.isFocused },
             colors = OutlinedTextFieldDefaults.colors(
                 focusedBorderColor = MaterialTheme.colorScheme.primary,
                 unfocusedBorderColor = MaterialTheme.colorScheme.outline,
                 focusedLabelColor = MaterialTheme.colorScheme.primary
             ),
-            shape = RoundedCornerShape(12.dp),
-            onFocusChanged = { isFocused = it.isFocused }
+            shape = RoundedCornerShape(12.dp)
         )
     }
 }
