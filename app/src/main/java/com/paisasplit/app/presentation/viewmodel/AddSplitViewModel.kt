@@ -2,9 +2,9 @@ package com.paisasplit.app.presentation.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.hisaabsplit.app.data.database.entities.*
+import com.paisasplit.app.data.database.entities.*
 import com.paisasplit.app.data.repository.PaisaRepository
-import com.hisaabsplit.app.domain.split.SplitCalculator
+import com.paisasplit.app.domain.split.SplitCalculator
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow

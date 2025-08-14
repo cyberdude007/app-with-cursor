@@ -5,10 +5,10 @@
         android:name=".PaisaSplitApp"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
-        android:label="HisaabSplit"
+        android:label="PaisaSplit"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.HisaabSplit">
+        android:theme="@style/Theme.PaisaSplit">
 
         <activity
             android:name=".MainActivity"

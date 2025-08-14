@@ -223,7 +223,7 @@ fun QuickActionButton(
 
 @Composable
 fun TransactionItem(
-    transaction: com.hisaabsplit.app.data.database.entities.Transaction,
+    transaction: com.paisasplit.app.data.database.entities.Transaction,
     onClick: () -> Unit
 ) {
     var isPressed by remember { mutableStateOf(false) }
@@ -270,7 +270,7 @@ fun TransactionItem(
                 modifier = Modifier.size(32.dp),
                 shape = MaterialTheme.shapes.small,
                 colors = CardDefaults.cardColors(
-                    containerColor = if (transaction.kind == com.hisaabsplit.app.data.database.entities.TransactionKind.SPLIT)
+                    containerColor = if (transaction.kind == com.paisasplit.app.data.database.entities.TransactionKind.SPLIT)
                         MaterialTheme.colorScheme.secondaryContainer
                     else MaterialTheme.colorScheme.tertiaryContainer
                 )
@@ -280,7 +280,7 @@ fun TransactionItem(
                     contentAlignment = Alignment.Center
                 ) {
                     Text(
-                        text = if (transaction.kind == com.hisaabsplit.app.data.database.entities.TransactionKind.SPLIT) "S" else "T",
+                        text = if (transaction.kind == com.paisasplit.app.data.database.entities.TransactionKind.SPLIT) "S" else "T",
                         style = MaterialTheme.typography.labelSmall,
                         fontWeight = FontWeight.Bold
                     )

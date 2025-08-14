@@ -17,7 +17,7 @@ data class HomeUiState(
     val totalBalance: BigDecimal = BigDecimal.ZERO,
     val netWorth: BigDecimal = BigDecimal.ZERO,
     val accountCount: Int = 0,
-    val recentTransactions: List<com.hisaabsplit.app.data.database.entities.Transaction> = emptyList()
+    val recentTransactions: List<com.paisasplit.app.data.database.entities.Transaction> = emptyList()
 )
 
 @HiltViewModel

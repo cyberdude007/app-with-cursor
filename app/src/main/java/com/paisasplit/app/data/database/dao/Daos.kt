@@ -1,10 +1,7 @@
 package com.paisasplit.app.data.database.dao
 
-import androidx.room.Dao
-import androidx.room.Insert
-import androidx.room.OnConflictStrategy
-import androidx.room.Query
-import com.hisaabsplit.app.data.database.entities.*
+import androidx.room.*
+import com.paisasplit.app.data.database.entities.*
 import kotlinx.coroutines.flow.Flow
 
 @Dao
