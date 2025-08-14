@@ -9,6 +9,7 @@ import androidx.compose.foundation.interaction.collectIsPressedAsState
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
@@ -20,7 +21,6 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.ImeAction
-import androidx.compose.ui.text.input.KeyboardOptions
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import java.math.BigDecimal
@@ -90,7 +90,6 @@ fun AmountInputField(
                 focusedLabelColor = MaterialTheme.colorScheme.primary
             ),
             shape = RoundedCornerShape(12.dp),
-            onValueChange = { onValueChange(it) },
             onFocusChanged = { isFocused = it.isFocused }
         )
     }
@@ -205,7 +204,7 @@ fun BalanceCard(
                 )
             }
             
-            subtitle?.let {
+            subtitle?.let { subtitleText ->
                 Spacer(modifier = Modifier.height(4.dp))
                 AnimatedVisibility(
                     visible = true,
@@ -216,7 +215,7 @@ fun BalanceCard(
                     )
                 ) {
                     Text(
-                        text = it,
+                        text = subtitleText,
                         style = MaterialTheme.typography.bodySmall,
                         color = MaterialTheme.colorScheme.onPrimaryContainer.copy(alpha = 0.7f)
                     )
@@ -238,7 +237,7 @@ fun AnimatedBalanceCard(
     var isVisible by remember { mutableStateOf(false) }
     
     LaunchedEffect(Unit) {
-        delay(delay.toLong())
+        kotlinx.coroutines.delay(delay.toLong())
         isVisible = true
     }
     
@@ -268,6 +267,52 @@ fun AnimatedBalanceCard(
             onClick = onClick,
             modifier = modifier
         )
+    }
+}
+
+@Composable
+fun QuickActionButton(
+    icon: androidx.compose.ui.graphics.vector.ImageVector,
+    label: String,
+    onClick: () -> Unit,
+    modifier: Modifier = Modifier
+) {
+    var isPressed by remember { mutableStateOf(false) }
+    
+    Card(
+        modifier = modifier
+            .size(80.dp)
+            .graphicsLayer {
+                scaleX = if (isPressed) 0.95f else 1f
+                scaleY = if (isPressed) 0.95f else 1f
+                shadowElevation = if (isPressed) 2.dp.toPx() else 8.dp.toPx()
+            }
+            .clickable { onClick() },
+        colors = CardDefaults.cardColors(
+            containerColor = MaterialTheme.colorScheme.secondaryContainer
+        ),
+        shape = MaterialTheme.shapes.medium
+    ) {
+        Column(
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(8.dp),
+            horizontalAlignment = Alignment.CenterHorizontally,
+            verticalArrangement = Arrangement.Center
+        ) {
+            Icon(
+                imageVector = icon,
+                contentDescription = label,
+                modifier = Modifier.size(24.dp),
+                tint = MaterialTheme.colorScheme.onSecondaryContainer
+            )
+            Spacer(modifier = Modifier.height(4.dp))
+            Text(
+                text = label,
+                style = MaterialTheme.typography.labelSmall,
+                color = MaterialTheme.colorScheme.onSecondaryContainer
+            )
+        }
     }
 }
 
