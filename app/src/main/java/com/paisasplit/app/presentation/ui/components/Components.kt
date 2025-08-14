@@ -43,11 +43,7 @@ fun AmountInputField(
     ) {
         OutlinedTextField(
             value = value,
-            onValueChange = { newValue ->
-                if (newValue.matches(Regex("^\\d*\\.?\\d{0,2}$"))) {
-                    onValueChange(newValue)
-                }
-            },
+            onValueChange = onValueChange,
             label = { 
                 Text(
                     text = label,
@@ -204,7 +200,7 @@ fun BalanceCard(
                 )
             }
             
-            subtitle?.let { subtitleText ->
+            if (subtitle != null) {
                 Spacer(modifier = Modifier.height(4.dp))
                 AnimatedVisibility(
                     visible = true,
@@ -215,7 +211,7 @@ fun BalanceCard(
                     )
                 ) {
                     Text(
-                        text = subtitleText,
+                        text = subtitle,
                         style = MaterialTheme.typography.bodySmall,
                         color = MaterialTheme.colorScheme.onPrimaryContainer.copy(alpha = 0.7f)
                     )
@@ -312,6 +308,66 @@ fun QuickActionButton(
                 style = MaterialTheme.typography.labelSmall,
                 color = MaterialTheme.colorScheme.onSecondaryContainer
             )
+        }
+    }
+}
+
+@Composable
+fun TransactionItem(
+    transaction: com.paisasplit.app.data.database.entities.Transaction,
+    onClick: () -> Unit
+) {
+    Card(
+        modifier = Modifier
+            .fillMaxWidth()
+            .clickable { onClick() },
+        shape = MaterialTheme.shapes.small,
+        colors = CardDefaults.cardColors(
+            containerColor = if (transaction.kind == com.paisasplit.app.data.database.entities.TransactionKind.SPLIT)
+                MaterialTheme.colorScheme.secondaryContainer
+            else MaterialTheme.colorScheme.tertiaryContainer
+        )
+    ) {
+        Row(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(12.dp),
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+            Box(
+                modifier = Modifier
+                    .size(32.dp)
+                    .clip(MaterialTheme.shapes.small)
+                    .background(
+                        if (transaction.kind == com.paisasplit.app.data.database.entities.TransactionKind.SPLIT)
+                            MaterialTheme.colorScheme.primary
+                        else MaterialTheme.colorScheme.secondary
+                    ),
+                contentAlignment = Alignment.Center
+            ) {
+                Text(
+                    text = if (transaction.kind == com.paisasplit.app.data.database.entities.TransactionKind.SPLIT) "S" else "T",
+                    style = MaterialTheme.typography.labelSmall,
+                    fontWeight = FontWeight.Bold
+                )
+            }
+            
+            Spacer(modifier = Modifier.width(12.dp))
+            
+            Column(
+                modifier = Modifier.weight(1f)
+            ) {
+                Text(
+                    text = transaction.title,
+                    style = MaterialTheme.typography.bodyMedium,
+                    fontWeight = FontWeight.Medium
+                )
+                Text(
+                    text = "₹${transaction.amountTotal}",
+                    style = MaterialTheme.typography.bodySmall,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant
+                )
+            }
         }
     }
 }

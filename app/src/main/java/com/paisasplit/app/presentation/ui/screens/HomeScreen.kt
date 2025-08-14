@@ -24,6 +24,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import com.paisasplit.app.presentation.viewmodel.HomeViewModel
 import com.paisasplit.app.presentation.ui.components.AnimatedBalanceCard
 import com.paisasplit.app.presentation.ui.components.QuickActionButton
+import com.paisasplit.app.presentation.ui.components.TransactionItem
 import kotlinx.coroutines.delay
 
 @Composable
@@ -154,112 +155,6 @@ fun HomeScreen(viewModel: HomeViewModel = hiltViewModel()) {
                         }
                     }
                 }
-            }
-        }
-    }
-}
-
-@Composable
-fun QuickActionButton(
-    icon: ImageVector,
-    label: String,
-    onClick: () -> Unit,
-    modifier: Modifier = Modifier
-) {
-    var isPressed by remember { mutableStateOf(false) }
-    
-    Card(
-        modifier = modifier
-            .size(80.dp)
-            .graphicsLayer {
-                scaleX = if (isPressed) 0.95f else 1f
-                scaleY = if (isPressed) 0.95f else 1f
-                shadowElevation = if (isPressed) 2.dp.toPx() else 8.dp.toPx()
-            }
-            .clickable { onClick() },
-        colors = CardDefaults.cardColors(
-            containerColor = MaterialTheme.colorScheme.secondaryContainer
-        ),
-        shape = MaterialTheme.shapes.medium
-    ) {
-        Column(
-            modifier = Modifier
-                .fillMaxSize()
-                .padding(8.dp),
-            horizontalAlignment = Alignment.CenterHorizontally,
-            verticalArrangement = Arrangement.Center
-        ) {
-            Icon(
-                imageVector = icon,
-                contentDescription = label,
-                modifier = Modifier.size(24.dp),
-                tint = MaterialTheme.colorScheme.onSecondaryContainer
-            )
-            Spacer(modifier = Modifier.height(4.dp))
-            Text(
-                text = label,
-                style = MaterialTheme.typography.labelSmall,
-                color = MaterialTheme.colorScheme.onSecondaryContainer
-            )
-        }
-    }
-}
-
-@Composable
-fun TransactionItem(
-    transaction: com.paisasplit.app.data.database.entities.Transaction,
-    onClick: () -> Unit
-) {
-    Card(
-        modifier = Modifier
-            .fillMaxWidth()
-            .clickable { onClick() },
-        shape = MaterialTheme.shapes.small,
-        colors = CardDefaults.cardColors(
-            containerColor = if (transaction.kind == com.paisasplit.app.data.database.entities.TransactionKind.SPLIT)
-                MaterialTheme.colorScheme.secondaryContainer
-            else MaterialTheme.colorScheme.tertiaryContainer
-        )
-    ) {
-        Row(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(12.dp),
-            verticalAlignment = Alignment.CenterVertically
-        ) {
-            Box(
-                modifier = Modifier
-                    .size(32.dp)
-                    .clip(MaterialTheme.shapes.small)
-                    .background(
-                        if (transaction.kind == com.paisasplit.app.data.database.entities.TransactionKind.SPLIT)
-                            MaterialTheme.colorScheme.primary
-                        else MaterialTheme.colorScheme.secondary
-                    ),
-                contentAlignment = Alignment.Center
-            ) {
-                Text(
-                    text = if (transaction.kind == com.paisasplit.app.data.database.entities.TransactionKind.SPLIT) "S" else "T",
-                    style = MaterialTheme.typography.labelSmall,
-                    fontWeight = FontWeight.Bold
-                )
-            }
-            
-            Spacer(modifier = Modifier.width(12.dp))
-            
-            Column(
-                modifier = Modifier.weight(1f)
-            ) {
-                Text(
-                    text = transaction.title,
-                    style = MaterialTheme.typography.bodyMedium,
-                    fontWeight = FontWeight.Medium
-                )
-                Text(
-                    text = "₹${transaction.amountTotal}",
-                    style = MaterialTheme.typography.bodySmall,
-                    color = MaterialTheme.colorScheme.onSurfaceVariant
-                )
             }
         }
     }
