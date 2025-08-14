@@ -51,18 +51,11 @@ fun AmountInputField(
                 ) 
             },
             leadingIcon = {
-                AnimatedContent(
-                    targetState = prefix,
-                    transitionSpec = {
-                        slideInVertically { -it } + fadeIn() with slideOutVertically { it } + fadeOut()
-                    }
-                ) { targetPrefix ->
-                    Text(
-                        text = targetPrefix,
-                        style = MaterialTheme.typography.bodyLarge,
-                        color = MaterialTheme.colorScheme.onSurfaceVariant
-                    )
-                }
+                Text(
+                    text = prefix,
+                    style = MaterialTheme.typography.bodyLarge,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant
+                )
             },
             keyboardOptions = KeyboardOptions(
                 imeAction = ImeAction.Done
@@ -186,19 +179,12 @@ fun BalanceCard(
             
             Spacer(modifier = Modifier.height(8.dp))
             
-            AnimatedContent(
-                targetState = amount,
-                transitionSpec = {
-                    slideInVertically { -it } + fadeIn() with slideOutVertically { it } + fadeOut()
-                }
-            ) { targetAmount ->
-                Text(
-                    text = "₹${targetAmount.setScale(2, RoundingMode.HALF_UP)}",
-                    style = MaterialTheme.typography.displayLarge,
-                    color = MaterialTheme.colorScheme.primary,
-                    fontWeight = FontWeight.Bold
-                )
-            }
+            Text(
+                text = "₹${amount.setScale(2, RoundingMode.HALF_UP)}",
+                style = MaterialTheme.typography.displayLarge,
+                color = MaterialTheme.colorScheme.primary,
+                fontWeight = FontWeight.Bold
+            )
             
             if (subtitle != null) {
                 Spacer(modifier = Modifier.height(4.dp))
@@ -233,19 +219,18 @@ fun AnimatedBalanceCard(
     var isVisible by remember { mutableStateOf(false) }
     
     LaunchedEffect(Unit) {
-        kotlinx.coroutines.delay(delay.toLong())
         isVisible = true
     }
     
     AnimatedVisibility(
         visible = isVisible,
         enter = slideInHorizontally(
-            animationSpec = tween(600, delayMillis = delay.toLong()),
+            animationSpec = tween(600, delayMillis = delay),
             initialOffsetX = { if (delay % 2 == 0) -it else it }
         ) + fadeIn(
-            animationSpec = tween(600, delayMillis = delay.toLong())
+            animationSpec = tween(600, delayMillis = delay)
         ) + scaleIn(
-            animationSpec = tween(600, delayMillis = delay.toLong()),
+            animationSpec = tween(600, delayMillis = delay),
             initialScale = 0.8f
         ),
         exit = slideOutHorizontally(
