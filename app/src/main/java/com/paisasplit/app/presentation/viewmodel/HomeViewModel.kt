@@ -2,6 +2,7 @@ package com.paisasplit.app.presentation.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.paisasplit.app.data.database.entities.Transaction
 import com.paisasplit.app.data.repository.PaisaRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -17,7 +18,7 @@ data class HomeUiState(
     val totalBalance: BigDecimal = BigDecimal.ZERO,
     val netWorth: BigDecimal = BigDecimal.ZERO,
     val accountCount: Int = 0,
-    val recentTransactions: List<com.paisasplit.app.data.database.entities.Transaction> = emptyList()
+    val recentTransactions: List<Transaction> = emptyList()
 )
 
 @HiltViewModel

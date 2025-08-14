@@ -1,7 +1,14 @@
 package com.paisasplit.app.data.database.dao
 
 import androidx.room.*
-import com.paisasplit.app.data.database.entities.*
+import com.paisasplit.app.data.database.entities.Account
+import com.paisasplit.app.data.database.entities.Category
+import com.paisasplit.app.data.database.entities.Group
+import com.paisasplit.app.data.database.entities.Member
+import com.paisasplit.app.data.database.entities.Transaction
+import com.paisasplit.app.data.database.entities.Split
+import com.paisasplit.app.data.database.entities.LedgerEntry
+import com.paisasplit.app.data.database.entities.Settlement
 import kotlinx.coroutines.flow.Flow
 
 @Dao
