@@ -18,7 +18,7 @@ class MainActivity : ComponentActivity() {
         setContent {
             PaisaSplitTheme {
                 Surface(modifier = Modifier.fillMaxSize()) {
-                    PaisaSplitApp()
+                    AppContent()
                 }
             }
         }
@@ -26,7 +26,7 @@ class MainActivity : ComponentActivity() {
 }
 
 @Composable
-fun PaisaSplitApp() {
+fun AppContent() {
     AppNavHost()
 }
 
